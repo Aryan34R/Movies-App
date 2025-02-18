@@ -1,25 +1,22 @@
-import { call, put, takeLatest } from "redux-saga/effects";
-import axios from "axios";
-import { fetchMoviesRequest, fetchMoviesSuccess, fetchMoviesFailure } from "../slices/MoviesSlice";
+import { call, put, takeEvery } from 'redux-saga/effects';
+import { fetchMoviesSuccess, fetchMoviesFailure } from '../slices/MoviesSlice';
 
-const API_URL = "http://localhost:3000/movies"; // Replace with your API URL
-
-// Function to fetch movies
+// Function to fetch movies from your API
 function fetchMoviesApi() {
-  return axios.get(API_URL);
+  return fetch("http://localhost:3000/movies").then(response => response.json());
 }
 
-// Saga to handle fetching movies
-function* fetchMoviesSaga() {
+// Worker saga: makes the API call when the watcher saga sees the action
+function* fetchMovies() {
   try {
-    const response = yield call(fetchMoviesApi);
-    yield put(fetchMoviesSuccess(response.data)); // Store data in Redux store
+    const movies = yield call(fetchMoviesApi);
+    yield put(fetchMoviesSuccess(movies));
   } catch (error) {
-    yield put(fetchMoviesFailure(error.message));
+    yield put(fetchMoviesFailure(error.toString()));
   }
 }
 
-// Watcher Saga
-export function* watchFetchMovies() {
-  yield takeLatest(fetchMoviesRequest.type, fetchMoviesSaga);
+// Watcher saga: watches for the fetchMoviesRequest action
+export default function* moviesSaga() {
+  yield takeEvery('movies/fetchMoviesRequest', fetchMovies);
 }
