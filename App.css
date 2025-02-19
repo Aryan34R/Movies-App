@@ -1,0 +1,45 @@
+body{
+  margin: 0;
+  padding: 0;
+}
+.log-st{
+  margin-top: 100px;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.log-st form{
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+}
+.sig-st{
+  margin-top: 100px;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sig-st form{
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+}
+/* .das-st{
+  margin-top: 100px;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.das-st form{
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+}
+ */
+.count{
+  font-size: 36px;
+  text-decoration: double;
+}
